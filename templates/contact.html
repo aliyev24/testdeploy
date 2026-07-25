@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Contact — GreenInk{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>Contact</h1>
+  <p>Feel free to reach out through any of the channels below.</p>
+</div>
+
+<div class="container" style="max-width:520px">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px;font-family:sans-serif">
+
+    <div style="padding:14px 0;border-bottom:1px solid var(--border)">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-muted);margin-bottom:4px">Phone</div>
+      <div style="font-size:15px;color:var(--text-sec)">+994 XX XXX XX XX</div>
+    </div>
+
+    <div style="padding:14px 0;border-bottom:1px solid var(--border)">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-muted);margin-bottom:4px">Email</div>
+      <a href="mailto:avaz@email.com" style="font-size:15px;color:var(--accent)">avaz@email.com</a>
+    </div>
+
+    <div style="padding:14px 0">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-muted);margin-bottom:4px">Address</div>
+      <div style="font-size:15px;color:var(--text-sec);line-height:1.6">Baku, Azerbaijan</div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

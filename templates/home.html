@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Home — GreenInk{% endblock %}
+
+{% block content %}
+
+{% if featured_post %}
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Featured</div>
+    <h1>{{ featured_post.title }}</h1>
+    <p class="hero-excerpt">{{ featured_post.excerpt }}</p>
+    <div class="hero-meta">
+      <span>{{ featured_post.published_at|date:"M j, Y" }}</span>
+      <a href="{% url 'post-detail' featured_post.slug %}" class="btn" style="margin-left:auto">Read now</a>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="layout">
+  <div>
+    <p class="section-title">Browse by category</p>
+    <div class="categories-row">
+      {% for category in categories %}
+        <a href="{% url 'categories' %}?cat={{ category.slug }}" class="cat-pill">
+          {{ category.name }}
+          <span class="cat-count">{{ category.posts.count }}</span>
+        </a>
+      {% endfor %}
+    </div>
+
+    <p class="section-title">Latest posts</p>
+    <div class="post-grid">
+      {% for post in posts %}
+        <a href="{% url 'post-detail' post.slug %}" class="post-card">
+          {% if post.cover_image %}
+            <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="post-cover">
+          {% else %}
+            <div class="post-cover-placeholder"></div>
+          {% endif %}
+          <div class="post-body">
+            {% if post.category %}
+              <div class="post-cat">{{ post.category.name }}</div>
+            {% endif %}
+            <div class="post-title">{{ post.title }}</div>
+            <div class="post-meta">
+              <span>{{ post.published_at|date:"M j, Y" }}</span>
+            </div>
+          </div>
+        </a>
+      {% empty %}
+        <p style="color:var(--text-muted);font-family:sans-serif;font-size:14px;grid-column:1/-1">No posts yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div>
+    <div class="sidebar-widget">
+      <div class="widget-title">Recent posts</div>
+      {% for post in recent_posts %}
+        <a href="{% url 'post-detail' post.slug %}" class="recent-post" style="text-decoration:none">
+          <div class="recent-dot"></div>
+          <div>
+            <div class="recent-title">{{ post.title }}</div>
+            <div class="recent-date">{{ post.published_at|date:"M j" }}</div>
+          </div>
+        </a>
+      {% empty %}
+        <p style="color:var(--text-muted);font-family:sans-serif;font-size:13px">No posts yet.</p>
+      {% endfor %}
+    </div>
+
+
+  </div>
+</div>
+
+{% endblock %}

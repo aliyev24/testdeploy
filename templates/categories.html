@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Categories — GreenInk{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>Categories</h1>
+  <p>Browse posts by topic</p>
+</div>
+
+<div class="container">
+
+  <div class="categories-row" style="margin-bottom:32px">
+    <a href="{% url 'categories' %}" class="cat-pill {% if not active_category %}active{% endif %}">
+      All <span class="cat-count">{{ total_posts }}</span>
+    </a>
+    {% for category in categories %}
+      <a href="?cat={{ category.slug }}" class="cat-pill {% if active_category.slug == category.slug %}active{% endif %}">
+        {{ category.name }}
+        <span class="cat-count">{{ category.posts.count }}</span>
+      </a>
+    {% endfor %}
+  </div>
+
+  {% if active_category %}
+    <p class="section-title">{{ active_category.name }}</p>
+  {% else %}
+    <p class="section-title">All posts</p>
+  {% endif %}
+
+  <div class="post-grid">
+    {% for post in posts %}
+      <a href="{% url 'post-detail' post.slug %}" class="post-card">
+        {% if post.cover_image %}
+          <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="post-cover">
+        {% else %}
+          <div class="post-cover-placeholder"></div>
+        {% endif %}
+        <div class="post-body">
+          {% if post.category %}
+            <div class="post-cat">{{ post.category.name }}</div>
+          {% endif %}
+          <div class="post-title">{{ post.title }}</div>
+          <div class="post-meta">
+            <span>{{ post.published_at|date:"M j, Y" }}</span>
+          </div>
+        </div>
+      </a>
+    {% empty %}
+      <p style="color:var(--text-muted);font-family:sans-serif;font-size:14px;grid-column:1/-1">
+        No posts in this category yet.
+      </p>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}

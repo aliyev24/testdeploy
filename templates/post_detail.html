@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} — GreenInk{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+  {% if post.category %}
+    <div class="hero-tag">{{ post.category.name }}</div>
+  {% endif %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.published_at|date:"M j, Y" }}</p>
+</div>
+
+<div class="container" style="max-width:680px">
+  {% if post.cover_image %}
+    <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
+         style="width:100%;border-radius:10px;margin-bottom:28px;object-fit:cover;max-height:360px">
+  {% endif %}
+
+  {% if post.excerpt %}
+    <p style="font-size:17px;color:var(--text-sec);font-family:sans-serif;
+               line-height:1.7;margin-bottom:24px;padding-bottom:24px;
+               border-bottom:1px solid var(--border)">
+      {{ post.excerpt }}
+    </p>
+  {% endif %}
+
+  <div style="font-size:16px;line-height:1.85;color:var(--text-sec);font-family:sans-serif">
+    {{ post.content|linebreaks }}
+  </div>
+
+  <div style="margin-top:40px;padding-top:20px;border-top:1px solid var(--border)">
+    <a href="{% url 'home' %}" class="btn btn-outline">Back to home</a>
+  </div>
+</div>
+
+{% endblock %}
